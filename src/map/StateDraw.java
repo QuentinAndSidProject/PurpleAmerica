@@ -13,7 +13,7 @@ import java.io.*;
  * @author hcps-davidsoqs
  */
 public class StateDraw {
-    public static void drawState(File stateName) throws Exception{
+    public static void drawState(File stateName, File year) throws Exception{
         int numCounties;
         int numPoints;
         double[] pointAryX;
@@ -29,6 +29,8 @@ public class StateDraw {
         for(int x = 0; x < numCounties; x++){
             scan.nextLine();
             scan.nextLine();
+            scan.nextLine();
+            scan.nextLine();
             numPoints = scan.nextInt();
             scan.nextLine();
             
@@ -39,12 +41,11 @@ public class StateDraw {
                 pointAryX[i] = ((scan.nextDouble() + 124.731216)/ 1000);
                 pointAryX[i] = ((scan.nextDouble() - 24.544102)/ 1000);
             }
+            scan.nextLine();
+            scan.nextLine();
+            StdDraw.setPenColor(x, x, x);
         }
         System.out.print("new line = ");
         System.out.println(scan.nextLine());
-    }
-    
-    public static void colorState(String stateName, int year){
-        
     }
 }
