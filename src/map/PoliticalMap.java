@@ -26,8 +26,11 @@ public class PoliticalMap {
         File[] fileAry = new File[51];
         fileAry[0] = new File(PoliticalMap.class.getResource("/data/USA.txt").toURI());
         
+         File[] fileAry1 = new File[14];
+        fileAry[0] = new File(PoliticalMap.class.getResource("/data/USA2012.txt").toURI());
+        
         for(int i = 0; i < 1; i++){
-            StateDraw.drawState(fileAry[i]);
+            StateDraw.drawState(fileAry[i],fileAry[i]); 
             
         }
     }
