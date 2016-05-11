@@ -19,6 +19,12 @@ public class StateDraw {
         double[] pointAryX;
         double[] pointAryY;
         
+        int red;
+        int green;
+        int blue;
+        
+        int sum;
+        
         Scanner scan = new Scanner(stateName);
         scan.nextLine();
         scan.nextLine();
@@ -39,13 +45,25 @@ public class StateDraw {
             
             for(int i = 0; i < numPoints; i++){
                 pointAryX[i] = ((scan.nextDouble() + 124.731216)/ 1000);
-                pointAryX[i] = ((scan.nextDouble() - 24.544102)/ 1000);
+                pointAryY[i] = ((scan.nextDouble() - 24.544102)/ 1000);
             }
+            //255
             scan.nextLine();
+            System.out.print("new line = ");
+            System.out.println(scan.next());
+            
+            /*scan.next();
+            red=scan.nextInt();
+            scan.next();
+            blue=scan.nextInt();
+            scan.next();
+            green=scan.nextInt();
             scan.nextLine();
-            StdDraw.setPenColor(x, x, x);
+            
+            sum = red+blue+green;
+            StdDraw.setPenColor((red/sum), (green/sum), (blue/sum));
+            */
         }
-        System.out.print("new line = ");
-        System.out.println(scan.nextLine());
+        
     }
 }
