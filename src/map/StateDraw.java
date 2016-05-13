@@ -6,6 +6,7 @@
 
 package map;
 import edu.princeton.cs.introcs.*;
+import java.awt.Color;
 import java.util.*;
 import java.io.*;
 /**
@@ -26,11 +27,10 @@ public class StateDraw {
         int sum;
         
         Scanner scan = new Scanner(stateName);
+        Scanner pollScan = new Scanner(year);
         scan.nextLine();
         scan.nextLine();
-        numCounties = scan.nextInt();
-        scan.nextLine();
-        scan.nextLine();
+        numCounties = scan.nextInt(); 
         
         for(int x = 0; x < numCounties; x++){
             scan.nextLine();
@@ -47,23 +47,29 @@ public class StateDraw {
                 pointAryX[i] = ((scan.nextDouble() + 124.731216)/ 1000);
                 pointAryY[i] = ((scan.nextDouble() - 24.544102)/ 1000);
             }
-            //255
-            scan.nextLine();
-            System.out.print("new line = ");
-            System.out.println(scan.next());
+            pollScan.nextLine();
             
-            /*scan.next();
-            red=scan.nextInt();
-            scan.next();
-            blue=scan.nextInt();
-            scan.next();
-            green=scan.nextInt();
-            scan.nextLine();
+            String poll = pollScan.next();
+            while(poll.length() < 10){
+                poll = pollScan.next();
+            }
+            poll = poll.replaceAll(",", " ");       
+            
+            
+            Scanner stringScan = new Scanner(poll);
+            stringScan.next();
+            
+            red=stringScan.nextInt();
+            blue=stringScan.nextInt();
+            green=stringScan.nextInt();
             
             sum = red+blue+green;
-            StdDraw.setPenColor((red/sum), (green/sum), (blue/sum));
-            */
+            StdDraw.setPenColor((red/sum), (green/sum), (blue/sum)); 
+            StdDraw.filledPolygon(pointAryX, pointAryY);
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.polygon(pointAryX, pointAryY);
         }
+        
         
     }
 }
