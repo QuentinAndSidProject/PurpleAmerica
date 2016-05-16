@@ -20,22 +20,23 @@ public class StateDraw {
         double[] pointAryX;
         double[] pointAryY;
         
-        int red;
-        int green;
-        int blue;
+        double red = 0.0;
+        double green = 0.0;
+        double blue = 0.0;
         
-        int sum;
+        double sum = 0.0;
         
         Scanner scan = new Scanner(stateName);
         Scanner pollScan = new Scanner(year);
         scan.nextLine();
         scan.nextLine();
-        numCounties = scan.nextInt(); 
+        numCounties = scan.nextInt();
+        String lastCounty = "";
         
         for(int x = 0; x < numCounties; x++){
             scan.nextLine();
             scan.nextLine();
-            scan.nextLine();
+            String nextCounty = scan.nextLine();
             scan.nextLine();
             numPoints = scan.nextInt();
             scan.nextLine();
@@ -44,32 +45,35 @@ public class StateDraw {
             pointAryY = new double[numPoints];
             
             for(int i = 0; i < numPoints; i++){
-                pointAryX[i] = ((scan.nextDouble() + 124.731216)/ 1000);
-                pointAryY[i] = ((scan.nextDouble() - 24.544102)/ 1000);
+                pointAryX[i] = (((scan.nextDouble() + 124.731216)/ 60) + .03);
+                pointAryY[i] = (((scan.nextDouble() - 24.544102)/ 30) + .03);
             }
-            pollScan.nextLine();
             
-            String poll = pollScan.next();
-            while(poll.length() < 10){
-                poll = pollScan.next();
+            if(!nextCounty.equals(lastCounty)){
+                pollScan.nextLine();
+                String poll = pollScan.next();
+                //System.out.println(poll);
+                while(poll.length() < 10){
+                    poll = pollScan.next();
+                }
+                poll = poll.replaceAll(",", " ");       
+
+
+                Scanner stringScan = new Scanner(poll);
+                stringScan.next();
+
+                red = stringScan.nextInt();
+                blue = stringScan.nextInt();
+                green = stringScan.nextInt();
+
+                sum = red + blue + green;
+                lastCounty = nextCounty;
             }
-            poll = poll.replaceAll(",", " ");       
             
-            
-            Scanner stringScan = new Scanner(poll);
-            stringScan.next();
-            
-            red=stringScan.nextInt();
-            blue=stringScan.nextInt();
-            green=stringScan.nextInt();
-            
-            sum = red+blue+green;
-            StdDraw.setPenColor((red/sum), (green/sum), (blue/sum)); 
+            StdDraw.setPenColor((int)(((red/sum) * 100) + 40), (int)(((green/sum) * 100) + 40), (int)(((blue/sum) * 100)) + 40); 
             StdDraw.filledPolygon(pointAryX, pointAryY);
             StdDraw.setPenColor(Color.BLACK);
             StdDraw.polygon(pointAryX, pointAryY);
         }
-        
-        
     }
 }
