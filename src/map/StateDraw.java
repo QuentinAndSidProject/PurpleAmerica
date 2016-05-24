@@ -15,6 +15,7 @@ import java.io.*;
  */
 public class StateDraw {
     public static void drawState(File stateName, File year) throws Exception{
+        StdDraw.show(0);
         int numCounties;
         int numPoints;
         double[] pointAryX;
@@ -52,12 +53,12 @@ public class StateDraw {
             if(!nextCounty.equals(lastCounty)){
                 pollScan.nextLine();
                 String poll = pollScan.next();
-                //System.out.println(poll);
+                System.out.println(poll);
                 while(poll.length() < 10){
                     poll = pollScan.next();
                 }
                 poll = poll.replaceAll(",", " ");       
-
+                
 
                 Scanner stringScan = new Scanner(poll);
                 stringScan.next();
@@ -74,6 +75,8 @@ public class StateDraw {
             StdDraw.filledPolygon(pointAryX, pointAryY);
             StdDraw.setPenColor(Color.BLACK);
             StdDraw.polygon(pointAryX, pointAryY);
+            
         }
+        StdDraw.show(0);
     }
 }
