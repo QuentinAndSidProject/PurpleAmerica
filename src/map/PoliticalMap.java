@@ -80,17 +80,75 @@ public class PoliticalMap {
         Scanner scan = new Scanner(System.in);
         boolean isCorrect = false;
         int year = 0;
+        int byState = 0;
+        
+        while(isCorrect == false){
+            isCorrect = true;
+            System.out.print("Enter 1 if you want the whole country by county or 2 if you want a single state: ");
+            byState = scan.nextInt();
+            
+            if(byState <= 0 && byState >= 3){
+                isCorrect = false;
+                System.out.println("Enter 1 or 2");
+            }
+        }
+        
+        isCorrect = false;
         
         while(isCorrect == false){
             isCorrect = true;
             System.out.print("Enter the year that you want to see the data for (1960 - 2012): ");
             year = scan.nextInt();
-        }
-        
-        for(int i = 1; i < 51; i++){
-            if(!(i == 11)){
-                StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI())); 
+            
+            if((year % 4 != 0) || year < 1960 || year > 2012){
+                isCorrect = false;
+                System.out.println("Enter a proper year please");
             }
         }
+        
+        if(byState == 1){
+            for(int i = 1; i < 51; i++){
+                if(!(i == 11)){
+                    StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), 1,""); 
+                }
+            }
+        }
+        else{
+            String state;
+            System.out.print("Enter the abreviation for the state you want or USA for the whole country not by county: ");
+            state = scan.next();
+            boolean isProper = false;
+            
+            if(state.length() != 2){
+                while(!isProper){
+                    System.out.print("Enter a proper abreviation: ");
+                    state = scan.next();
+                    if(state.length() == 2){
+                        isProper = true;
+                    }
+                }
+            }
+            
+            if(state.equals("USA")){
+                StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/USA.txt").toURI()), new File(PoliticalMap.class.getResource("/data/USA" + year + ".txt").toURI()), 1, state);
+            }
+            
+            isProper = false;
+            
+            for(int i = 0; i < 51; i++){
+                if(stateNameAry[i].equals(state.toUpperCase())){
+                    StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), 2, state);
+                    isProper = true;
+                }
+            }
+            if(!isProper){
+                System.out.println("your didn't enter a proper state abreviation and thus the program won't work");
+                System.out.println("restart and use the program correctly");
+            }
+        }
+            
+        //the following line is for Quentin's additional feature
+        //StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/USA.txt").toURI()), new File(PoliticalMap.class.getResource("/data/USA" + year + "Ages.txt").toURI()));
+        
     }
 }
