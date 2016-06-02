@@ -22,8 +22,7 @@ import java.awt.geom.Path2D;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
-import static map.PoliticalMap.stateNameAry;
-import static map.PoliticalMap.year;
+
 
 /**
  *
@@ -92,7 +91,7 @@ public class StateClickListener extends Thread {
                     StdDraw.clear();
                     for (int i = 1; i < 51; i++) { //start of for loop
                         if (!(i == 11)) {
-                            StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), false);
+                            StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + PoliticalMap.stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + PoliticalMap.stateNameAry[i] + PoliticalMap.year + ".txt").toURI()), 1, "", false);
                         }
                     } //end of for loop
                     
@@ -128,6 +127,6 @@ public class StateClickListener extends Thread {
         StdDraw.text(.17, .10, String.valueOf(StateDraw.green) + " Other Party");
         StdDraw.show(0);
         
-        StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + statename + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + statename + year + ".txt").toURI()),false);
+        StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + statename + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + statename + PoliticalMap.year + ".txt").toURI()),2,statename, false);
     }
 }
