@@ -20,11 +20,16 @@ import java.net.*;
  * @author 
  */
 public class PoliticalMap {
+    public static String[] stateNameAry = new String[51]; //holds the names of the states
+    public static int year = 0;
     public static void main(String[] args) throws Exception{
+                //makes the canvas on which the points will be mapped onto
+
         StdDraw.setCanvasSize(1300,600);
         
-        String[] stateNameAry = new String[51];
         
+                //elements of the array for the states of the US
+
         stateNameAry[0] = "AK";
         stateNameAry[1] = "AL";
         stateNameAry[2] = "AR";
@@ -76,13 +81,15 @@ public class PoliticalMap {
         stateNameAry[48] = "WI";
         stateNameAry[49] = "WV";
         stateNameAry[50] = "WY";
-        
+           //instantiating the StateClickListener in the main class     
+        StateClickListener listener = new StateClickListener();
+        //creates a scanner        
         Scanner scan = new Scanner(System.in);
         boolean isCorrect = false;
-        int year = 0;
-        int byState = 0;
         
-        while(isCorrect == false){
+        int byState = 0;
+        //loop to select what year the user would like to see the poll data for        
+        while(isCorrect == false){ //start of while loop
             isCorrect = true;
             System.out.print("Enter 1 if you want the whole country by county or 2 if you want a single state: ");
             byState = scan.nextInt();
@@ -91,11 +98,11 @@ public class PoliticalMap {
                 isCorrect = false;
                 System.out.println("Enter 1 or 2");
             }
-        }
+        }//end of while loop
         
         isCorrect = false;
         
-        while(isCorrect == false){
+        while(isCorrect == false){ //start of while loop
             isCorrect = true;
             System.out.print("Enter the year that you want to see the data for (1960 - 2012): ");
             year = scan.nextInt();
@@ -104,12 +111,18 @@ public class PoliticalMap {
                 isCorrect = false;
                 System.out.println("Enter a proper year please");
             }
+        }//end of while loop
+        listener.start(); //starts the listener 
+        //loop to get the data from the files        
+        for(int i = 1; i < 51; i++){ //start of for loop
+            if(!(i == 11)){
+                StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), byState, "", true); 
+            }
         }
-        
         if(byState == 1){
             for(int i = 1; i < 51; i++){
                 if(!(i == 11)){
-                    StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), 1,""); 
+                    StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), 1,"", false); 
                 }
             }
         }
@@ -130,14 +143,14 @@ public class PoliticalMap {
             }
             
             if(state.equals("USA")){
-                StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/USA.txt").toURI()), new File(PoliticalMap.class.getResource("/data/USA" + year + ".txt").toURI()), 1, state);
+                StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/USA.txt").toURI()), new File(PoliticalMap.class.getResource("/data/USA" + year + ".txt").toURI()), 1, state, false);
             }
             
             isProper = false;
             
             for(int i = 0; i < 51; i++){
                 if(stateNameAry[i].equals(state.toUpperCase())){
-                    StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), 2, state);
+                    StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + ".txt").toURI()), new File(PoliticalMap.class.getResource("/data/" + stateNameAry[i] + year + ".txt").toURI()), 2, state, false);
                     isProper = true;
                 }
             }
@@ -146,7 +159,7 @@ public class PoliticalMap {
                 System.out.println("restart and use the program correctly");
             }
         }
-            
+        
         //the following line is for Quentin's additional feature
         //StateDraw.drawState(new File(PoliticalMap.class.getResource("/data/USA.txt").toURI()), new File(PoliticalMap.class.getResource("/data/USA" + year + "Ages.txt").toURI()));
         
